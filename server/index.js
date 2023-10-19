@@ -9,7 +9,8 @@ const bodyParser =  require('body-parser')
 const mongoose = require("mongoose")
 const cors = require("cors")
 const dotenv = require("dotenv")
-const router = require('./routes/posts.js')
+const postRoutes = require('./routes/posts.js')
+const userRoutes = require('./routes/user.js')
 
 const app = express();
 dotenv.config()
@@ -19,7 +20,9 @@ app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
 app.use(cors());
 
 
-app.use('/posts', router);
+app.use('/posts', postRoutes);
+app.use('/user', userRoutes);
+
 
 
 const CONNECTION_URL = 'mongodb+srv://mernStackMastery:mernStackMastery123@cluster0.yq4ylvu.mongodb.net/'
