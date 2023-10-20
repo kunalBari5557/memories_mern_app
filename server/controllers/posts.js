@@ -1,12 +1,28 @@
 const { mongoose } = require("mongoose");
 const PostMessage = require("../models/postMessage");
 
- const getPosts = async (req, res) => { 
-  try {
-      const postMessages = await PostMessage.find();
+//  const getPosts = async (req, res) => { 
+//   try {
+//       const postMessages = await PostMessage.find();
               
-      res.status(200).json(postMessages);
-  } catch (error) {
+//       res.status(200).json(postMessages);
+//   } catch (error) {
+//       res.status(404).json({ message: error.message });
+//   }
+// }
+
+const getPosts = async (req, res) => {
+  const { page } = req.query;
+  
+  try {
+      const LIMIT = 8;
+      const startIndex = (Number(page) - 1) * LIMIT; // get the starting index of every page
+  
+      const total = await PostMessage.countDocuments({});
+      const posts = await PostMessage.find().sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
+
+      res.json({ data: posts, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT)});
+  } catch (error) {    
       res.status(404).json({ message: error.message });
   }
 }
@@ -19,6 +35,20 @@ const PostMessage = require("../models/postMessage");
       
       res.status(200).json(post);
   } catch (error) {
+      res.status(404).json({ message: error.message });
+  }
+}
+
+const getPostsBySearch = async (req, res) => {
+  const { searchQuery, tags } = req.query;
+
+  try {
+      const title = new RegExp(searchQuery, "i");
+
+      const posts = await PostMessage.find({ $or: [ { title }, { tags: { $in: tags.split(',') } } ]});
+
+      res.json({ data: posts });
+  } catch (error) {    
       res.status(404).json({ message: error.message });
   }
 }
@@ -82,4 +112,4 @@ const PostMessage = require("../models/postMessage");
   res.status(200).json(updatedPost);
 }
 
-module.exports = { getPosts,getPost, createPosts, updatePost, deletePost, likePost };
+module.exports = { getPosts,getPost,getPostsBySearch, createPosts, updatePost, deletePost, likePost };
