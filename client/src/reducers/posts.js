@@ -5,9 +5,9 @@ export default (state = [], action) => {
     case FETCH_ALL:
       return {
         ...state,
-        posts: action.payload.data.data,
+        posts: action.payload.data,
         currentPage: action.payload.currentPage,
-        numberOfPages: action.payload.data,
+        numberOfPages: action.payload.numberOfPages,
       }
     case FETCH_BY_SEARCH:
       return { ...state, posts: action.payload };

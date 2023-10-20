@@ -43,7 +43,6 @@ const SignUp = () => {
   };
 
   const handleSubmit = (e) => {
-    console.log(form);
     e.preventDefault();
 
     if (isSignup) {

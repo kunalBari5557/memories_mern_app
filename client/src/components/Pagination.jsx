@@ -8,8 +8,7 @@ import { getPosts } from '../actions/posts';
 import useStyles from './styles';
 
 const Paginate = ({ page }) => {
-  const { posts, numberOfPages } = useSelector((state) => state?.posts.numberOfPages);
-  console.log(numberOfPages);
+  const {numberOfPages} = useSelector((state) => state?.posts);
   const dispatch = useDispatch();
 
   const classes = useStyles();

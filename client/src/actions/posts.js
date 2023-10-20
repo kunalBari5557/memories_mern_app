@@ -5,8 +5,7 @@ export const getPosts = (page) => async (dispatch) => {
   try {
     // dispatch({ type: START_LOADING });
     const { data } = await api.fetchPosts(page);
-    console.log(data);
-    dispatch({ type: FETCH_ALL, payload: {data} });
+    dispatch({ type: FETCH_ALL, payload: data });
     // dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error);
@@ -16,8 +15,7 @@ export const getPosts = (page) => async (dispatch) => {
   export const getPostsBySearch = (searchQuery) => async (dispatch) => {
     try {
       const { data: { data } } = await api.fetchPostsBySearch(searchQuery);
-      dispatch({ type: FETCH_BY_SEARCH, payload: {data} });
-      console.log(data);
+      dispatch({ type: FETCH_BY_SEARCH, payload: data });
       // dispatch({ type: FETCH_BY_SEARCH, payload: { data } });
       // dispatch({ type: END_LOADING });
     } catch (error) {
@@ -60,7 +58,6 @@ export const getPosts = (page) => async (dispatch) => {
       await api.deletePost(id);
   
       dispatch({ type: DELETE, payload: id });
-      console.log("deleted successfully");
     } catch (error) {
       console.log(error.message);
       console.log("deleted failed");
