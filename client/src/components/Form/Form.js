@@ -100,9 +100,10 @@ const Form = ({ currentId, setCurrentId }) => {
             onAdd={(chip) => handleAddChip(chip)}
             onDelete={(chip) => handleDeleteChip(chip)}
             error={formik.touched.tags && Boolean(formik.errors.tags)}
+            helperText={formik.touched.tags && formik.errors.tags}
           />
         </div>
-        <div className={classes.fileInput}>
+        <div className={classes.fileInput}><br></br>
           <FileBase type="file" multiple={false} onDone={({ base64 }) => formik.setFieldValue('selectedFile', base64)} />
         </div>
         <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>
