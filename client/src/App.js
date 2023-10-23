@@ -6,6 +6,7 @@ import Home from "./components/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
 import Auth from "./components/Auth/Auth";
 import PostDetails from "./components/PostDetails/PostDetails";
+import toast, { Toaster } from 'react-hot-toast';
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -13,6 +14,7 @@ const App = () => {
   return (
       <BrowserRouter>
         <Container maxWidth="xl">
+          <Toaster/>
           <Navbar />
           <Routes>
             <Route path="/posts" element={<Home />} />
