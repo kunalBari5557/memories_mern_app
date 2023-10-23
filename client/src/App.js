@@ -12,7 +12,7 @@ const App = () => {
 
   return (
       <BrowserRouter>
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
           <Navbar />
           <Routes>
             <Route path="/posts" element={<Home />} />
